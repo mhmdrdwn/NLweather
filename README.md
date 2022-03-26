@@ -1,2 +1,2 @@
 # NL-weather
-Using GNNs for weather forcasting
+Here i'm learning weather forcasting using ML methods
