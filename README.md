@@ -12,3 +12,12 @@ Here i'm learning weather forcasting using ML methods
 | LSTM          |  7.51        |  7.61        |   7.51       |  7.47        |
 
 ## Wind Direction
+
+### Results
+
+#### MAE
+
+| Model         | 1 Hour ahead | 5 Hours ahead|10 Hours ahead|50 Hours ahead|
+| ------------- |:------------:|:------------:|:------------:|:------------:|
+| LSTM          |  29.57       |  43.29       |   54.87      |  67.06       |
+
