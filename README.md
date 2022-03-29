@@ -16,7 +16,7 @@ Here i'm learning weather forcasting using ML methods
 | Model          | 1 Hour ahead | 5 Hours ahead|10 Hours ahead|50 Hours ahead|
 | -------------- |:------------:|:------------:|:------------:|:------------:|
 | LSTM           |  9.15        |  13.72       |   17.43      |  19.09       |
-| LSTM+BilPooling|  7.49        |  9.37        |   11.65      |	 17.44       |
+| LSTM+BiPooling |  7.10        |  9.18        |   11.49      |	 17.54       |
 
 ## Wind Direction
 
