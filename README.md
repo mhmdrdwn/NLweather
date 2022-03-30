@@ -17,7 +17,7 @@ Here we use how temperature can have effect on wind speed and direction. we buil
 
 | Model          | 1 Hour ahead | 5 Hours ahead|10 Hours ahead|50 Hours ahead|
 | -------------- |:------------:|:------------:|:------------:|:------------:|
-| LSTM           |  8.98        |  13.73       |   17.43      |  19.09       |
+| LSTM           |  8.98        |  13.73       |   17.74      |  18.91       |
 | LSTM+BiPooling |  7.16        |  9.38        |   11.55      |	 17.33       |
 
 ### RMSE
