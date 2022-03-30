@@ -9,7 +9,7 @@ from sklearn.metrics import mean_absolute_error
 import matplotlib.pyplot as plt
 
 
-def results(y_true, y_preds, plots=True):
+def results(y_true, y_preds, feature_name, plots=True):
     """Visualization of windspeed predictions vs ground truth and
     Overall evaluation the predictions of the test data"""
 
@@ -22,7 +22,7 @@ def results(y_true, y_preds, plots=True):
             plt.plot(range(len(y_true[:, i])), y_true[:, i], label='Ground Truth ')
             plt.plot(range(len(y_preds[:, i])), y_preds[:, i], label='Predictions')
             plt.title('City '+str(i+1))
-            plt.xlabel('Time')
-            plt.ylabel('Wind Speed')
+            plt.xlabel('Time Index')
+            plt.ylabel('Wind ' + feature_name)
             plt.legend(loc="upper left")
             plt.show()

@@ -39,9 +39,9 @@ class BiLinearPoolingLSTM(nn.Module):
         self.input_size = input_size
         self.hidden_size = hidden_size
         self.seq_length = 10
-        self.lstm1 = nn.LSTM(input_size=input_size, hidden_size=self.hidden_size,
+        self.lstm1 = nn.LSTM(input_size=input_size[0], hidden_size=self.hidden_size,
                             num_layers=num_layers, batch_first=True, bidirectional=True)
-        self.lstm2 = nn.LSTM(input_size=input_size, hidden_size=self.hidden_size,
+        self.lstm2 = nn.LSTM(input_size=input_size[1], hidden_size=self.hidden_size,
                             num_layers=num_layers, batch_first=True, bidirectional=True)
         self.linear = nn.Linear(((hidden_size*2)+1)**2, output_size)
     

@@ -38,13 +38,15 @@ def make_ready_data(data, train=True, feature='speed', gap=1):
     x_len = 10  # 10 historical time steps
     y_len = 1  # next step
 
-    """we need the tempretaure in addition to the wind speed"""
-    if feature == 'tempreture':
+    """we need the temperature in addition to the wind speed"""
+    if feature == 'temperature':
         idx = 2
     elif feature == 'speed':
         idx = 0
     elif feature == 'direction':
         idx = 1
+    elif feature == 'pressure':
+        idx = 4
         
     
     x, y = build_data(data[:, :, idx], x_len, y_len, gap)
