@@ -5,12 +5,14 @@ Here i'm learning weather forcasting using Deep learning methods
 
 ### Methods
 
-[LSTM using only wind speed data](https://github.com/mhmdrdwn/NL-weather/blob/main/wind_speed/lstm.ipynb)
+- LSTM using only wind speed data
 
-[LSTM + Bilinear Pooling using wind speed data + temperature data](https://github.com/mhmdrdwn/NL-weather/blob/main/wind_speed/poolinglstm.ipynb)
+- LSTM + Bilinear Pooling using wind speed data + temperature data
 
 
 ### Results
+
+[Check Demo](https://github.com/mhmdrdwn/NLweather/blob/main/wind_speed_demo.ipynb)
 
 #### MAE
 | Model          | 1 Hour ahead | 5 Hours ahead|10 Hours ahead|50 Hours ahead|
@@ -29,5 +31,8 @@ Here i'm learning weather forcasting using Deep learning methods
 | LSTM          |  29.57       |  43.29       |   54.87      |  67.06       |
 
 
-Project structure: from https://github.com/ossez-com/python-project-structure-sample
+
+
+- Dataset from "Trebing, Kevin and Mehrkanoon, Siamak, 2020, Wind speed prediction using multidimensional convolutional neural networks" [Github](https://github.com/HansBambel/multidim_conv)
+- Project structure: [Github](https://github.com/ossez-com/python-project-structure-sample)
 
