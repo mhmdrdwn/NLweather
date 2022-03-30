@@ -4,6 +4,7 @@ __author__ = 'Mohamed Radwan'
 
 import pickle
 import numpy as np
+import math
 
 
 def read_raw_data(data_dir='Wind_data_NL'):
@@ -44,6 +45,7 @@ def make_ready_data(data, train=True, feature='speed', gap=1):
         idx = 0
     elif feature == 'direction':
         idx = 1
+        
     
     x, y = build_data(data[:, :, idx], x_len, y_len, gap)
     x, y = x.reshape(x.shape[0], 10, 7), y.reshape(y.shape[0], 7)
@@ -54,6 +56,42 @@ def make_ready_data(data, train=True, feature='speed', gap=1):
         xval = x[60000:]
         yval = y[60000:]
 
+        return xtrain, xval, ytrain, yval
+    else:
+        return x, y
+
+    
+def make_wind_direction_data(data, train=True, temp=False, gap=1):
+    """The direction data is slightly differnet from the speed data.
+    Here, we calculate the sine and cosine of each data point. This
+    means that the data features will be of the size 14 instead of 7"""
+    
+    x_len = 10  # 10 historical time steps
+    y_len = 1  # next step
+    
+    if temp:
+        idx = 4
+    else:
+        idx = 1
+        
+    x, y = build_data(data[:, :, idx], x_len, y_len, gap) 
+    
+    """Convert the degrees into radians values and take the sine or cosine"""
+    x = x.reshape(x.shape[0], 10, 7) * 2 * math.pi
+    y = y.reshape(y.shape[0], 7) *  2 * math.pi
+    
+    xcos, ycos = np.cos(x), np.cos(y)
+    xsin, ysin = np.sin(x), np.sin(y)
+    
+    x = np.concatenate((xsin, xcos), axis=2)
+    y = np.concatenate((ysin, ycos), axis=1)
+    
+    if train:
+        xtrain = x[:60000]
+        ytrain = y[:60000]
+        xval = x[60000:]
+        yval = y[60000:]
+    
         return xtrain, xval, ytrain, yval
     else:
         return x, y

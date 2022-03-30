@@ -4,6 +4,7 @@ __author__ = 'Mohamed Radwan'
 
 
 import torch
+import numpy as np
 
 def build_dataloader(xtrain, xval, xtest, ytrain,
                      yval, ytest, xtrain_temp=None, 
@@ -37,3 +38,31 @@ def build_dataloader(xtrain, xval, xtest, ytrain,
 
     return train_iter, val_iter, test_iter, device
 
+
+def convert2deg(sin_pred,cos_pred):
+    """Modified after: https://mattgorb.github.io/wind,
+    The idea here is to convert the sine and cosine values
+    into radians
+    """
+    inv_sin=np.degrees(np.arcsin(sin_pred))
+    inv_cos=np.degrees(np.arccos(cos_pred))
+    radians_sin=[]
+    radians_cos=[]
+    
+    for a,b,c,d in zip(sin_pred, cos_pred, inv_sin, inv_cos):
+        if(a>0 and b>0):
+            radians_sin.append(c)
+            radians_cos.append(d)
+        elif(a>0 and b<0):
+            radians_sin.append(180-c)
+            radians_cos.append(d)
+        elif(a<0 and b<0):
+            radians_sin.append(180-c)
+            radians_cos.append(360-d)
+        elif(a<0 and b>0):
+            radians_sin.append(360+c)
+            radians_cos.append(360-d)
+            
+    radians_sin=np.array(radians_sin)
+    radians_cos=np.array(radians_cos)
+    return radians_sin, radians_cos

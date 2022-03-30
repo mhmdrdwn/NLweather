@@ -9,6 +9,8 @@ from torch import nn
 
 from tqdm import tqdm
 
+from .data_utils import convert2deg
+
 def specs(model):
     lr = 0.01
     loss_fn = nn.MSELoss()
@@ -92,3 +94,50 @@ def run_test(model, test_iter, scaler, features_set=2):
     
     return y_true, y_preds
 
+
+def run_test_direction(model, test_iter, scaler, features_set=2):
+    model.eval()
+    y_preds = list()
+    y_true = list()
+
+    max_wind = scaler['feature_max_train'][0]
+    min_wind = scaler['feature_min_train'][0]
+
+    with torch.no_grad():
+        for data_batch in test_iter:
+            if features_set == 1:
+                x, y = data_batch
+                y_pred = model(x).view(len(y), -1).cpu().numpy().reshape(-1)
+            else:
+                x1, x2, y = data_batch
+                y_pred = model(x1, x2).view(len(y), -1).cpu().numpy().reshape(-1)
+            y = y.cpu().numpy().reshape(-1)
+            
+            """One drawback in this model is that the values has to 
+            be between -1 and 1 in order to find the arcsine of the 
+            outputs. So, we round values outside range(-1, 1)"""
+            
+            y = np.array(y)
+            y_pred = np.array([-1 if i < -1 else i for i in y_pred]) 
+            y_pred = np.array([1  if i > 1 else i for i in y_pred])
+    
+            # split cosine and sine values
+            # add very small values (1e-18) to avoid zeros in the matrices 
+            sin_pred = y_pred.reshape(int(y_pred.shape[0]/14), 14)[:, :7].flatten() + 1e-18
+            cos_pred = y_pred.reshape(int(y_pred.shape[0]/14), 14)[:, 7:].flatten() + 1e-18
+            sin_y = y.reshape(int(y.shape[0]/14), 14)[:, :7].flatten() + 1e-18
+            cos_y = y.reshape(int(y.shape[0]/14), 14)[:, 7:].flatten() + 1e-18
+            
+            # recover the radians from the sine and cosine values
+            y_pred, _  = convert2deg(sin_pred,cos_pred)
+            y, _  = convert2deg(sin_y,cos_y)
+
+            y_preds.extend(list(y_pred))
+            y_true.extend(list(y))
+        
+    y_preds = np.array(y_preds)
+    y_true = np.array(y_true)
+    y_true = y_true.reshape(int(y_true.shape[0]/7), 7)
+    y_preds = y_preds.reshape(int(y_preds.shape[0]/7), 7)
+    
+    return y_true, y_preds

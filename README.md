@@ -1,11 +1,12 @@
 # NL-weather
-Here we use how temperature can have effect on wind speed and direction. we build Fusion neural network where temperature and wind time series data are used togethr in forcasting of wind speed and wind direction. 
+
+Here we see how temperature can have effect on wind speed and direction. we build Fusion neural network where temperature and wind time series data are used together in forcasting of wind speed and wind direction. 
 
 ### Data
 
-The dataset contains wind speed, wind direction, temperature, wind pressure  (6 features). 
-
-- The data was acquired from 7 cities in Netherlands
+- The dataset contains wind speed, wind direction, temperature, wind pressure, rain amount and Dew Point (6 features). 
+- The data was acquired from 7 cities in Netherlands from 2011 to 2020 with 81.000 datapoints. 
+- The data is split into training (January 2011 - December 2018) and testing (January 2019 - March 2020)
 
 ### Methods
 
@@ -15,6 +16,7 @@ The dataset contains wind speed, wind direction, temperature, wind pressure  (6 
 
 
 ### Results
+
 ### Wind Speed
 
 [Check Demo](https://github.com/mhmdrdwn/NLweather/blob/main/wind_speed_demo.ipynb)
@@ -29,11 +31,12 @@ The dataset contains wind speed, wind direction, temperature, wind pressure  (6 
 
 ### Wind Direction
 
-| Model         | 1 Hour ahead | 5 Hours ahead|10 Hours ahead|50 Hours ahead|
-| ------------- |:------------:|:------------:|:------------:|:------------:|
-| LSTM          |  29.57       |  43.29       |   54.87      |  67.06       |
-| LSTM+BiPooling|  10.86       |  13.43       |   16.18      |  22.81       |
-
+| Error | Model             | 1H ahead | 5H ahead|10H ahead|50H ahead|
+|-------| ----------------- |:--------:|:-------:|:-------:|:-------:|
+| MAE   | LSTM Baseline     |  29.08   |  43.29  |   54.65 |  67.07  | 
+| MAE   | LSTM+BiLinPooling |  7.30    |  9.38   |   11.55 |  17.33  | 
+| RMSE  | LSTM Baseline     |  65.07   |  78.30  |  86.88  |  86.06  |
+| RMSE  | LSTM+BiLinPooling |  10.82   |  13.43  |   16.18 |  22.81  |
 
 
 ### References: Dataset source and project structure
