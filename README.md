@@ -19,10 +19,11 @@ The dataset contains wind speed, wind direction, temperature, wind pressure  (6 
 
 [Check Demo](https://github.com/mhmdrdwn/NLweather/blob/main/wind_speed_demo.ipynb)
 
-|		 |		MAE	       	          |     RMSE                               |
+| Model vs Error |		MAE	       	                      |     RMSE                               |
+| -------------- |:--------------------------------------:|:--------------------------------------:|
 | Model          | 1H ahead | 5H ahead|10H ahead|50H ahead| 1H ahead |5H ahead |10H ahead|50H ahead|
 | -------------- |:--------:|:-------:|:-------:|:-------:|:--------:|:-------:|:-------:|:-------:|
-| LSTM           |  8.99    |  13.73  |   17.74 |  18.91  |  11.84   |  17.77  |  22.18  |  24.19  |
+| LSTM Baseline  |  8.99    |  13.73  |   17.74 |  18.91  |  11.84   |  17.77  |  22.18  |  24.19  |
 | LSTM+BiPooling |  7.30    |  9.38   |   11.55 |  17.33  |  10.82   |  13.43  |   16.18 |  22.81  |
 
 
