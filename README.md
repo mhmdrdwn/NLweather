@@ -1,5 +1,5 @@
 # NL-weather
-Here i'm learning weather forcasting using ML methods
+Here i'm learning weather forcasting using Deep learning methods
 
 ## Wind Speed
 
@@ -27,4 +27,7 @@ Here i'm learning weather forcasting using ML methods
 | Model         | 1 Hour ahead | 5 Hours ahead|10 Hours ahead|50 Hours ahead|
 | ------------- |:------------:|:------------:|:------------:|:------------:|
 | LSTM          |  29.57       |  43.29       |   54.87      |  67.06       |
+
+
+Project structure: from https://github.com/ossez-com/python-project-structure-sample
 
