@@ -7,8 +7,9 @@ import torch
 
 def build_dataloader(xtrain, xval, xtest, ytrain,
                      yval, ytest, xtrain_temp=None, 
-                     xval_temp=None, xtest_temp=None):
-    """convert arrays to tensors"""
+                     xval_temp=None, xtest_temp=None, 
+                     add_temp=False):
+    
     batch_size = 64
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
@@ -18,7 +19,7 @@ def build_dataloader(xtrain, xval, xtest, ytrain,
     yval = torch.Tensor(yval).to(device)
     xtest = torch.Tensor(xtest).to(device)
     ytest = torch.Tensor(ytest).to(device)
-    if xtrain_temp and xval_temp and xtest_temp:
+    if add_temp:
         xtest_temp = torch.Tensor(xtest_temp).to(device)
         xtrain_temp = torch.Tensor(xtrain_temp).to(device)
         xval_temp = torch.Tensor(xval_temp).to(device)

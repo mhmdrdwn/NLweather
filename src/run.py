@@ -53,7 +53,7 @@ def run_train(model, train_iter, val_iter, num_epochs=10, features_set=2):
             losses.append(loss.item())
         
         train_loss = np.mean(losses)
-        val_loss = validate(model, val_iter, loss_fn) 
+        val_loss = validate(model, val_iter, loss_fn, features_set=features_set) 
     
         if epoch % 2 == 0:
             print('Epoch: ', epoch+1, ', Train Loss: ', train_loss, ', Val Loss: ', val_loss)
