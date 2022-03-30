@@ -16,10 +16,9 @@ Here we see how temperature can have effect on wind speed and direction. we buil
 
 
 ### Results
-
+[Check Demo](https://github.com/mhmdrdwn/NLweather/blob/main/demo.ipynb)
 ### Wind Speed
 
-[Check Demo](https://github.com/mhmdrdwn/NLweather/blob/main/wind_speed_demo.ipynb)
 
 | Error | Model             | 1H ahead | 5H ahead|10H ahead|50H ahead|
 |-------| ----------------- |:--------:|:-------:|:-------:|:-------:|
@@ -28,15 +27,18 @@ Here we see how temperature can have effect on wind speed and direction. we buil
 | RMSE  | LSTM Baseline     | 11.84    |  17.77  |  22.18  |  24.19  |
 | RMSE  | LSTM+BiLinPooling | 10.82    |  13.43  |   16.18 |  22.81  |
 
+| Forcasting of wind speed using vanilla LSTM  | Forcasting of wind speed using LSTM with BiLinear Pooling |
+|----------------------------------------------| --------------------------------------------------------- |
+| ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_speed.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_bi_speed.png)     |
 
 ### Wind Direction
 
 | Error | Model             | 1H ahead | 5H ahead|10H ahead|50H ahead|
 |-------| ----------------- |:--------:|:-------:|:-------:|:-------:|
 | MAE   | LSTM Baseline     |  29.08   |  43.29  |   54.65 |  67.07  | 
-| MAE   | LSTM+BiLinPooling |  7.30    |  9.38   |   11.55 |  17.33  | 
-| RMSE  | LSTM Baseline     |  65.07   |  78.30  |  86.88  |  86.06  |
-| RMSE  | LSTM+BiLinPooling |  10.82   |  13.43  |   16.18 |  22.81  |
+| MAE   | LSTM+BiLinPooling |  22.95   |  34.20  |   41.69 |  17.33  | 
+| RMSE  | LSTM Baseline     |  65.07   |  78.30  |   86.88 |  86.06  |
+| RMSE  | LSTM+BiLinPooling |  58.74   |  70.59  |   77.69 |  22.81  |
 
 
 ### References: Dataset source and project structure
