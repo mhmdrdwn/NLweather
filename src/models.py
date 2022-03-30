@@ -7,6 +7,31 @@ import torch
 from torch import nn
 from torch.autograd import Variable
     
+
+class LSTM(nn.Module):
+    def __init__(self, output_size, input_size, hidden_size, num_layers):
+        super(LSTM, self).__init__()
+
+        self.num_layers = num_layers
+        self.input_size = input_size
+        self.hidden_size = hidden_size
+        self.seq_length = 10
+        self.lstm = nn.LSTM(input_size=input_size, hidden_size=self.hidden_size,
+                            num_layers=num_layers, batch_first=True, bidirectional=True)
+        self.linear = nn.Linear(hidden_size*2, output_size)
+
+    def forward(self, x):
+        h0 = Variable(torch.zeros(self.num_layers*2, x.size(0), self.hidden_size))
+        c0 = Variable(torch.zeros(self.num_layers*2, x.size(0), self.hidden_size))
+
+        lstm_out, (hn, cn) = self.lstm(x, (h0, c0))
+        #hn = hn.view(-1, self.hidden_size*2)
+        out = lstm_out[:, -1, :]
+        out = self.linear(out)
+    
+        return out
+    
+
 class BiLinearPoolingLSTM(nn.Module):
     def __init__(self, output_size, input_size, hidden_size, num_layers):
         super(BiLinearPoolingLSTM, self).__init__()
