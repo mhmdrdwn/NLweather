@@ -41,15 +41,15 @@ Here we see how temperature can have effect on wind speed and direction. we buil
 
 | Error | Model             | 1H ahead | 5H ahead|10H ahead|50H ahead|
 |-------| ----------------- |:--------:|:-------:|:-------:|:-------:|
-| MAE   | LSTM Baseline     |  29.08   |  43.29  |   54.65 |  67.07  | 
+| MAE   | LSTM Baseline     |  29.08   |  43.29  |   54.65 |  69.39  | 
 | MAE   | LSTM+BiLinPooling |  22.95   |  34.20  |   41.69 |  65.93  | 
-| RMSE  | LSTM Baseline     |  65.07   |  78.30  |   86.88 |  86.06  |
+| RMSE  | LSTM Baseline     |  65.07   |  78.30  |   86.88 |  91.49  |
 | RMSE  | LSTM+BiLinPooling |  58.74   |  70.59  |   77.69 |  93.05  |
 
 #### sample visualization
 
-| Sample forcasting of wind speed using vanilla LSTM  | Sample forcasting of wind speed using LSTM with BiLinear Pooling |
-|----------------------------------------------| --------------------------------------------------------- |
+| Sample forcasting of wind direction (0:360) using vanilla LSTM  | Sample forcasting of wind direction (0:360) using LSTM with BiLinear Pooling |
+|-----------------------------------------------------------------| ---------------------------------------------------------------------------- |
 | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_dir.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_bi_dir.png)     |
 
 
