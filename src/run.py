@@ -80,7 +80,7 @@ def run_train(model, train_iter, val_iter, num_epochs=10, features_set=2, output
     return model
 
 
-def run_test(model, test_iter, scaler, features_set=2):
+def run_test(model, test_iter, scaler, features_set=2, outputs_nr=1):
     model.eval()
     y_preds = list()
     y_true = list()
@@ -93,11 +93,17 @@ def run_test(model, test_iter, scaler, features_set=2):
             if features_set == 1:
                 x, y = data_batch
                 y = y.cpu().numpy().reshape(-1)
-                y_pred = model(x).view(len(y), -1).cpu().numpy().reshape(-1)
+                if outputs_nr == 1:
+                    y_pred = model(x).view(len(y), -1).cpu().numpy().reshape(-1)
+                else:
+                    y_pred = model(x)[1].view(len(y), -1).cpu().numpy().reshape(-1)
             else:
                 x1, x2, y = data_batch
                 y = y.cpu().numpy().reshape(-1)
-                y_pred = model(x1, x2).view(len(y), -1).cpu().numpy().reshape(-1)
+                if outputs_nr == 1:
+                    y_pred = model(x1, x2).view(len(y), -1).cpu().numpy().reshape(-1)
+                else:
+                    y_pred = model(x1, x2)[1].view(len(y), -1).cpu().numpy().reshape(-1)
                 
             y = y * max_wind + min_wind
             y_pred = y_pred * max_wind + min_wind

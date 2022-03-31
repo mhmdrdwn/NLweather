@@ -128,7 +128,7 @@ class AutoEncoderLSTM(nn.Module):
     def forward(self, x):
         enc = self.encode(x)
         enc = enc.unsqueeze(1)
-        enc = enc.repeat(1, x.shape[1], 1)
+        enc = enc.repeat(1, self.seq_length, 1)
         dec_x, dec_y = self.decode(enc)
         dec_x = dec_x.view(dec_x.shape[0], self.seq_length, int(dec_x.shape[-1]/self.seq_length))
         
