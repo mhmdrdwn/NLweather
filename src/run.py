@@ -18,7 +18,7 @@ def specs(model):
     return loss_fn, optimizer
 
 
-def validate(model, val_iter, loss_fn, features_set=2):
+def validate(model, val_iter, loss_fn, features_set=2, outputs_nr=1):
     model.eval()
     losses = []
         
@@ -30,13 +30,19 @@ def validate(model, val_iter, loss_fn, features_set=2):
             else:
                 x1, x2, y = data_batch
                 outputs = model(x1, x2)
-            loss = loss_fn(outputs.cpu(), y.cpu())
-            losses.append(loss)
+            if outputs_nr == 1:
+                loss = loss_fn(outputs.cpu(), y.cpu())
+                losses.append(loss)
+            else:
+                loss1 = loss_fn(outputs[1].cpu(), y.cpu())
+                loss2 = loss_fn(outputs[0].cpu(), x.cpu())
+                losses.append(loss1)
+                losses.append(loss2)
     mean_loss = np.mean(losses)
     return mean_loss
 
 
-def run_train(model, train_iter, val_iter, num_epochs=10, features_set=2):
+def run_train(model, train_iter, val_iter, num_epochs=10, features_set=2, outputs_nr=1):
     loss_fn, optimizer = specs(model)
     
     for epoch in range(num_epochs):
@@ -48,14 +54,25 @@ def run_train(model, train_iter, val_iter, num_epochs=10, features_set=2):
             else:
                 x1, x2, y = data_batch
                 outputs = model(x1, x2)
-            loss = loss_fn(outputs, y)
+            
             optimizer.zero_grad()
-            loss.backward()
+            
+            if outputs_nr == 1:
+                loss = loss_fn(outputs, y)
+                loss.backward()
+                losses.append(loss.item())
+            else:
+                loss1 = loss_fn(outputs[0], x)
+                loss2 = loss_fn(outputs[1], y)
+                loss1.backward(retain_graph=True)
+                loss2.backward(retain_graph=True)
+                losses.append(loss1.item())
+                losses.append(loss2.item())
+            
             optimizer.step()
-            losses.append(loss.item())
         
         train_loss = np.mean(losses)
-        val_loss = validate(model, val_iter, loss_fn, features_set=features_set) 
+        val_loss = validate(model, val_iter, loss_fn, features_set=features_set, outputs_nr=outputs_nr) 
     
         if epoch % 2 == 0:
             print('Epoch: ', epoch+1, ', Train Loss: ', train_loss, ', Val Loss: ', val_loss)

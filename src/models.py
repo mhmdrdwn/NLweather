@@ -16,7 +16,7 @@ class LSTM(nn.Module):
         self.input_size = input_size
         self.hidden_size = hidden_size
         self.seq_length = 10
-        self.lstm = nn.LSTM(input_size=input_size, hidden_size=self.hidden_size,
+        self.lstm = nn.LSTM(input_size=int(input_size), hidden_size=hidden_size,
                             num_layers=num_layers, batch_first=True, bidirectional=True)
         self.linear = nn.Linear(hidden_size*2, output_size)
 
@@ -39,9 +39,9 @@ class BiLinearPoolingLSTM(nn.Module):
         self.input_size = input_size
         self.hidden_size = hidden_size
         self.seq_length = 10
-        self.lstm1 = nn.LSTM(input_size=input_size[0], hidden_size=self.hidden_size,
+        self.lstm1 = nn.LSTM(input_size=input_size[0], hidden_size=hidden_size,
                             num_layers=num_layers, batch_first=True, bidirectional=True)
-        self.lstm2 = nn.LSTM(input_size=input_size[1], hidden_size=self.hidden_size,
+        self.lstm2 = nn.LSTM(input_size=input_size[1], hidden_size=hidden_size,
                             num_layers=num_layers, batch_first=True, bidirectional=True)
         self.linear = nn.Linear(((hidden_size*2)+1)**2, output_size)
     
@@ -92,3 +92,44 @@ class BiLinearPoolingLSTM(nn.Module):
         out = self.linear(main_output)
     
         return out
+    
+    
+class AutoEncoderLSTM(nn.Module):
+    def __init__(self, output_size, input_size, hidden_size, num_layers):
+        super(AutoEncoderLSTM, self).__init__()
+        self.num_layers = num_layers
+        self.input_size = input_size
+        self.hidden_size = hidden_size
+        self.seq_length = 10
+        self.lstm1 = nn.LSTM(input_size=int(input_size), hidden_size=hidden_size,
+                            num_layers=num_layers, batch_first=True, bidirectional=True)
+        self.lstm2 = nn.LSTM(input_size=hidden_size*2, hidden_size=hidden_size,
+                            num_layers=num_layers, batch_first=True, bidirectional=True)
+        self.bottleneck = nn.Linear((hidden_size*2), output_size*self.seq_length)
+        self.linear1 = nn.Linear((hidden_size*2), output_size*self.seq_length)    
+        self.linear2 = nn.Linear((hidden_size*2), output_size)
+    
+    def encode(self, x):
+        h = Variable(torch.zeros(self.num_layers*2, x.size(0), self.hidden_size))
+        c = Variable(torch.zeros(self.num_layers*2, x.size(0), self.hidden_size))
+        lstm_out, (hn1, cn1) = self.lstm1(x, (h, c))
+        enc = lstm_out[:, -1, :]
+        return enc
+        
+    def decode(self, encoded_x):
+        h = Variable(torch.zeros(self.num_layers*2, encoded_x.size(0), self.hidden_size))
+        c = Variable(torch.zeros(self.num_layers*2, encoded_x.size(0), self.hidden_size))
+        lstm_out, (hn1, cn1) = self.lstm2(encoded_x, (h, c))
+        dec = lstm_out[:, -1, :]
+        dec_x = self.linear1(dec)
+        dec_y = self.linear2(dec)
+        return dec_x, dec_y
+        
+    def forward(self, x):
+        enc = self.encode(x)
+        enc = enc.unsqueeze(1)
+        enc = enc.repeat(1, x.shape[1], 1)
+        dec_x, dec_y = self.decode(enc)
+        dec_x = dec_x.view(dec_x.shape[0], self.seq_length, int(dec_x.shape[-1]/self.seq_length))
+        
+        return dec_x, dec_y
