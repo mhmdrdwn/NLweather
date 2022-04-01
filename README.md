@@ -24,39 +24,42 @@ In all methods, we build the features and outputs using sliding window. The feat
 
 #### Error matrics
 
-| Error | Model                        | 1H ahead | 5H ahead|10H ahead|50H ahead|
-|-------| ---------------------------- |:--------:|:-------:|:-------:|:-------:|
-| MAE   | LSTM Baseline                |  8.99    |  13.73  |   17.74 |  18.91  |
-| MAE   | LSTM+BiLinPooling            |  7.30    |  9.38   |   11.55 |  17.33  | 
-| MAE   | AutoencoderLSTM+BiLinPooling |  6.62    |  9.88   |   10.97 |  16.45  |
-| RMSE  | LSTM Baseline                | 11.84    |  17.77  |   22.18 |  24.19  |
-| RMSE  | LSTM+BiLinPooling            | 10.82    |  13.43  |   16.18 |  22.81  |
-| RMSE  | AutoencoderLSTM+BiLinPooling |  9.12    |  13.67  |   15.97 |  21.85  |
+| Error | Model                        | 1H ahead | 5H ahead|10H ahead  |50H ahead    |
+|-------| ---------------------------- |:--------:|:-------:|:---------:|:-----------:|
+| MAE   | LSTM Baseline                |  8.99    |  13.73  |   17.74   |  18.91      |
+| MAE   | LSTM+BiLinPooling            |  7.30    |**9.38** |   11.55   |  17.33      | 
+| MAE   | AutoencoderLSTM+BiLinPooling | **6.62** |  9.88   | **10.97** |  **16.45**  |
+| RMSE  | LSTM Baseline                | 11.84    |  17.77  |   22.18   |  24.19      |
+| RMSE  | LSTM+BiLinPooling            | 10.82    |**13.43**|   16.18   |  22.81      |
+| RMSE  | AutoencoderLSTM+BiLinPooling |  **9.12**|  13.67  | **15.97** |  **21.85**  |
 
 
-#### sample visualization
+#### Sample Visualization
 
 | Vanilla LSTM  | LSTM with BiLinear Pooling | AutoencoderLSTM with BiLinear Pooling |
 |---------------| ---------------------------|-------------------------------------- |
-| ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_speed.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_bi_speed.png)     | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/ae_bi_speed.png) |
+| ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_speed.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_bi_speed.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/ae_bi_speed.png) |
 
 
 ### Wind Direction
 
 #### Error matrics
 
-| Error | Model             | 1H ahead | 5H ahead|10H ahead|50H ahead|
-|-------| ----------------- |:--------:|:-------:|:-------:|:-------:|
-| MAE   | LSTM Baseline     |  29.08   |  43.29  |   54.65 |  69.39  | 
-| MAE   | LSTM+BiLinPooling |  22.95   |  34.20  |   41.69 |  65.93  | 
-| RMSE  | LSTM Baseline     |  65.07   |  78.30  |   86.88 |  91.49  |
-| RMSE  | LSTM+BiLinPooling |  58.74   |  70.59  |   77.69 |  93.05  |
+| Error | Model                        | 1H ahead  | 5H ahead  |10H ahead  |50H ahead    |
+|-------| ---------------------------- |:---------:|:---------:|:---------:|:-----------:|
+| MAE   | LSTM Baseline                |  29.08    |  43.29    |   54.65   |  69.39      | 
+| MAE   | LSTM+BiLinPooling            |  **22.95**|  34.20    |   41.69   |  65.93      | 
+| MAE   | AutoencoderLSTM+BiLinPooling |  24.19    |**32.89**  | **39.87** | **65.72**   |
+| RMSE  | LSTM Baseline                |  65.07    |  78.30    |   86.88   |  91.49      |
+| RMSE  | LSTM+BiLinPooling            |  **58.74**|  70.59    |   77.69   |  **93.05**  |
+| RMSE  | AutoencoderLSTM+BiLinPooling |  60.17    |**68.56**  | **74.79** |    94.68    |
 
-#### sample visualization
 
-| forecasting of wind direction (0:360) using vanilla LSTM  | forecasting of wind direction (0:360) using LSTM with BiLinear Pooling |
-|-----------------------------------------------------------------| ---------------------------------------------------------------------------- |
-| ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_dir.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_bi_dir.png)     |
+#### Sample Visualization
+
+| Vanilla LSTM  | LSTM with BiLinear Pooling | AutoencoderLSTM with BiLinear Pooling |
+|---------------| -------------------------- | ------------------------------------- |
+| ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_dir.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_bi_dir.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/ae_bi_dir.png) |
 
 
 ### References: Dataset source and project structure
