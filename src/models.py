@@ -16,7 +16,7 @@ class LSTM(nn.Module):
         self.input_size = input_size
         self.hidden_size = hidden_size
         self.seq_length = 10
-        self.lstm = nn.LSTM(input_size=int(input_size), hidden_size=hidden_size,
+        self.lstm = nn.LSTM(input_size=input_size[0], hidden_size=hidden_size,
                             num_layers=num_layers, batch_first=True, bidirectional=True)
         self.linear = nn.Linear(hidden_size*2, output_size)
 
@@ -66,8 +66,7 @@ class BiLinearPoolingLSTM(nn.Module):
         out1 = out1.view(out1.shape[-1], out1.shape[0])
         out2 = out2.view(out2.shape[-1], out2.shape[0])
         out2 = out2.unsqueeze(1)
-        main_output = out1*out2
-        
+        main_output = out1*out2 
         return main_output
         
         
@@ -101,17 +100,17 @@ class BiLinearPoolingAutoEncoderLSTM(nn.Module):
         self.input_size = input_size
         self.hidden_size = hidden_size
         self.seq_length = 10
-        self.lstm1 = nn.LSTM(input_size=input_size, hidden_size=self.hidden_size,
+        self.lstm1 = nn.LSTM(input_size=input_size[0], hidden_size=self.hidden_size,
                             num_layers=num_layers, batch_first=True, bidirectional=True)
-        self.lstm2 = nn.LSTM(input_size=input_size, hidden_size=self.hidden_size,
+        self.lstm2 = nn.LSTM(input_size=input_size[1], hidden_size=self.hidden_size,
                             num_layers=num_layers, batch_first=True, bidirectional=True)
         self.lstm3 = nn.LSTM(input_size=32, hidden_size=self.hidden_size,
                             num_layers=num_layers, batch_first=True, bidirectional=True)
         self.lstm4 = nn.LSTM(input_size=32, hidden_size=self.hidden_size,
                             num_layers=num_layers, batch_first=True, bidirectional=True)
         
-        self.linear1 = nn.Linear((hidden_size*2), output_size*self.seq_length) 
-        self.linear2 = nn.Linear((hidden_size*2), output_size*self.seq_length)
+        self.linear1 = nn.Linear((hidden_size*2), input_size[0]*self.seq_length) 
+        self.linear2 = nn.Linear((hidden_size*2), input_size[1]*self.seq_length)
         self.linear3 = nn.Linear(output_size*self.seq_length, output_size)
         self.linear4 = nn.Linear(((hidden_size*2)+1)**2, output_size*self.seq_length)
     
