@@ -28,16 +28,16 @@ In all methods, we build the features and outputs using sliding window. The feat
 |-------| ---------------------------- |:--------:|:-------:|:-------:|:-------:|
 | MAE   | LSTM Baseline                |  8.99    |  13.73  |   17.74 |  18.91  |
 | MAE   | LSTM+BiLinPooling            |  7.30    |  9.38   |   11.55 |  17.33  | 
-| MAE   | AutoencoderLSTM+BiLinPooling |  6.62    |  9.38   |   11.55 |  17.33  |
-| RMSE  | LSTM Baseline                | 11.84    |  17.77  |  22.18  |  24.19  |
+| MAE   | AutoencoderLSTM+BiLinPooling |  6.62    |  9.88   |   10.97 |  17.33  |
+| RMSE  | LSTM Baseline                | 11.84    |  17.77  |   22.18 |  24.19  |
 | RMSE  | LSTM+BiLinPooling            | 10.82    |  13.43  |   16.18 |  22.81  |
-| RMSE  | AutoencoderLSTM+BiLinPooling | 9.12     |  13.43  |   16.18 |  22.81  |
+| RMSE  | AutoencoderLSTM+BiLinPooling | 9.12     |  13.67  |   15.97 |  22.81  |
 
 
 #### sample visualization
 
-| Vanilla LSTM  | LSTM with BiLinear Pooling | AutoencderLSTM with BiLinear Pooling |
-|---------------| ---------------------------|--------------------------------------|
+| Vanilla LSTM  | LSTM with BiLinear Pooling | AutoencoderLSTM with BiLinear Pooling |
+|---------------| ---------------------------|-------------------------------------- |
 | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_speed.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_bi_speed.png)     | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/ae_bi_speed.png) |
 
 
