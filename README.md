@@ -50,8 +50,8 @@ In all methods, we build the features and outputs using sliding window. The feat
 | MAE   | LSTM Baseline                |  29.08    |  43.29    |   54.65   |  69.39      | 
 | MAE   | LSTM+BiLinPooling            |  **22.95**|  34.20    |   41.69   |  65.93      | 
 | MAE   | AutoencoderLSTM+BiLinPooling |  24.19    |**32.89**  | **39.87** | **65.72**   |
-| RMSE  | LSTM Baseline                |  65.07    |  78.30    |   86.88   |  91.49      |
-| RMSE  | LSTM+BiLinPooling            |  **58.74**|  70.59    |   77.69   |  **93.05**  |
+| RMSE  | LSTM Baseline                |  65.07    |  78.30    |   86.88   | **91.49**   |
+| RMSE  | LSTM+BiLinPooling            |  **58.74**|  70.59    |   77.69   |  93.05      |
 | RMSE  | AutoencoderLSTM+BiLinPooling |  60.17    |**68.56**  | **74.79** |    94.68    |
 
 
