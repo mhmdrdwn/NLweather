@@ -14,7 +14,7 @@ In all methods, we build the features and outputs using sliding window. The feat
 **Baseline: Vanilla LSTM using only wind speed data or wind direction**
 
 **LSTM + Bilinear Pooling using wind speed/direction + temperature data**
-Speed (or direction) and temperature features are feed to separte two LSTM layers followed. The outputs are cross multipled to form a matrix. The idea is to get all possible (exhaustive) multiplications of the two outputs vectors of LSTM layers. This idea is originally from the article [Tensor Fusion Network](https://arxiv.org/abs/1707.07250) for using on multimodal data.
+Speed (or direction) and temperature features are feed to separte two LSTM layers. The outputs are cross multipled to form a matrix. The idea is to get all possible (exhaustive) multiplications of the two outputs vectors of LSTM layers. This idea is originally from the article [Tensor Fusion Network](https://arxiv.org/abs/1707.07250) for using on multimodal data.
 
 **Autoencoder LSTM + BiLinear Pooling using wind speed/direction + temperature data**
 This is just an extenstion of the LSTM + Bipooling. The idea is to make a less noisy representation of the two data (Speed and temperature data). In that case, The speed and temperature ar fed into two separate LSTM layers (encoder) followed by a bottleneck layer and two separate output LSTM layers (decoder). The goal of the encoder-decoder is to reconstuct the speed and temperature features. While the model is training to reconstruct the features, the bottleneck represenatations is cross multiplied and mapped to the prediction outputs. Here we optimize three losses (speed reconstruction loss, temperature reconstruction loss and output prediction loss).
