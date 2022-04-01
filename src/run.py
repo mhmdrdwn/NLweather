@@ -12,13 +12,13 @@ from tqdm import tqdm
 from .data_utils import convert2deg
 
 def specs(model):
-    lr = 0.01
+    lr = 0.001
     loss_fn = nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
     return loss_fn, optimizer
 
 
-def validate(model, val_iter, loss_fn, features_set=2, outputs_nr=1):
+def validate(model, val_iter, loss_fn, features_set=2):
     model.eval()
     losses = []
         
@@ -30,14 +30,11 @@ def validate(model, val_iter, loss_fn, features_set=2, outputs_nr=1):
             else:
                 x1, x2, y = data_batch
                 outputs = model(x1, x2)
-            if outputs_nr == 1:
-                loss = loss_fn(outputs.cpu(), y.cpu())
-                losses.append(loss)
-            else:
-                loss1 = loss_fn(outputs[1].cpu(), y.cpu())
-                loss2 = loss_fn(outputs[0].cpu(), x.cpu())
-                losses.append(loss1)
-                losses.append(loss2)
+
+            output_idx = -1
+            loss = loss_fn(outputs[output_idx].cpu(), y.cpu())
+            losses.append(loss)
+
     mean_loss = np.mean(losses)
     return mean_loss
 
@@ -61,18 +58,20 @@ def run_train(model, train_iter, val_iter, num_epochs=10, features_set=2, output
                 loss = loss_fn(outputs, y)
                 loss.backward()
                 losses.append(loss.item())
+
+            #handle mulitple losses/outputs
             else:
-                loss1 = loss_fn(outputs[0], x)
-                loss2 = loss_fn(outputs[1], y)
-                loss1.backward(retain_graph=True)
-                loss2.backward(retain_graph=True)
-                losses.append(loss1.item())
-                losses.append(loss2.item())
+                for loss_idx in range(outputs_nr):
+                    loss = loss_fn(outputs[loss_idx], data_batch[loss_idx])
+                    loss.backward(retain_graph=True)
+                    # we backward all losses, but we need to show only "Y" losses
+                    if (loss_idx - outputs_nr) == -1:
+                        losses.append(loss.item())
             
             optimizer.step()
         
         train_loss = np.mean(losses)
-        val_loss = validate(model, val_iter, loss_fn, features_set=features_set, outputs_nr=outputs_nr) 
+        val_loss = validate(model, val_iter, loss_fn, features_set=features_set) 
     
         if epoch % 2 == 0:
             print('Epoch: ', epoch+1, ', Train Loss: ', train_loss, ', Val Loss: ', val_loss)
@@ -80,7 +79,7 @@ def run_train(model, train_iter, val_iter, num_epochs=10, features_set=2, output
     return model
 
 
-def run_test(model, test_iter, scaler, features_set=2, outputs_nr=1):
+def run_test(model, test_iter, scaler, features_set=2):
     model.eval()
     y_preds = list()
     y_true = list()
@@ -93,17 +92,17 @@ def run_test(model, test_iter, scaler, features_set=2, outputs_nr=1):
             if features_set == 1:
                 x, y = data_batch
                 y = y.cpu().numpy().reshape(-1)
-                if outputs_nr == 1:
-                    y_pred = model(x).view(len(y), -1).cpu().numpy().reshape(-1)
-                else:
-                    y_pred = model(x)[1].view(len(y), -1).cpu().numpy().reshape(-1)
+                #if outputs_nr == 1:
+                #    y_pred = model(x).view(len(y), -1).cpu().numpy().reshape(-1)
+                #else:
+                y_pred = model(x)[-1].view(len(y), -1).cpu().numpy().reshape(-1)
             else:
                 x1, x2, y = data_batch
                 y = y.cpu().numpy().reshape(-1)
-                if outputs_nr == 1:
-                    y_pred = model(x1, x2).view(len(y), -1).cpu().numpy().reshape(-1)
-                else:
-                    y_pred = model(x1, x2)[1].view(len(y), -1).cpu().numpy().reshape(-1)
+                #if outputs_nr == 1:
+                #    y_pred = model(x1, x2).view(len(y), -1).cpu().numpy().reshape(-1)
+                #else:
+                y_pred = model(x1, x2)[-1].view(len(y), -1).cpu().numpy().reshape(-1)
                 
             y = y * max_wind + min_wind
             y_pred = y_pred * max_wind + min_wind

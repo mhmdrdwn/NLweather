@@ -94,42 +94,72 @@ class BiLinearPoolingLSTM(nn.Module):
         return out
     
     
-class AutoEncoderLSTM(nn.Module):
+class BiLinearPoolingAutoEncoderLSTM(nn.Module):
     def __init__(self, output_size, input_size, hidden_size, num_layers):
-        super(AutoEncoderLSTM, self).__init__()
+        super(BiLinearPoolingAutoEncoderLSTM, self).__init__()
         self.num_layers = num_layers
         self.input_size = input_size
         self.hidden_size = hidden_size
         self.seq_length = 10
-        self.lstm1 = nn.LSTM(input_size=int(input_size), hidden_size=hidden_size,
+        self.lstm1 = nn.LSTM(input_size=input_size, hidden_size=self.hidden_size,
                             num_layers=num_layers, batch_first=True, bidirectional=True)
-        self.lstm2 = nn.LSTM(input_size=hidden_size*2, hidden_size=hidden_size,
+        self.lstm2 = nn.LSTM(input_size=input_size, hidden_size=self.hidden_size,
                             num_layers=num_layers, batch_first=True, bidirectional=True)
-        self.bottleneck = nn.Linear((hidden_size*2), output_size*self.seq_length)
-        self.linear1 = nn.Linear((hidden_size*2), output_size*self.seq_length)    
-        self.linear2 = nn.Linear((hidden_size*2), output_size)
+        self.lstm3 = nn.LSTM(input_size=32, hidden_size=self.hidden_size,
+                            num_layers=num_layers, batch_first=True, bidirectional=True)
+        self.lstm4 = nn.LSTM(input_size=32, hidden_size=self.hidden_size,
+                            num_layers=num_layers, batch_first=True, bidirectional=True)
+        
+        self.linear1 = nn.Linear((hidden_size*2), output_size*self.seq_length) 
+        self.linear2 = nn.Linear((hidden_size*2), output_size*self.seq_length)
+        self.linear3 = nn.Linear(output_size*self.seq_length, output_size)
+        self.linear4 = nn.Linear(((hidden_size*2)+1)**2, output_size*self.seq_length)
     
-    def encode(self, x):
-        h = Variable(torch.zeros(self.num_layers*2, x.size(0), self.hidden_size))
-        c = Variable(torch.zeros(self.num_layers*2, x.size(0), self.hidden_size))
-        lstm_out, (hn1, cn1) = self.lstm1(x, (h, c))
-        enc = lstm_out[:, -1, :]
-        return enc
+    
+    def TFN(self, enc1, enc2):         
+        enc2_ones = enc1_ones = torch.ones((enc1.shape[0], 1))
+        enc2 = torch.cat((enc2, enc2_ones), 1)
+        enc1 = torch.cat((enc1, enc1_ones), 1)
+        enc1 = enc1.view(enc1.shape[-1], enc1.shape[0])
+        enc2 = enc2.view(enc2.shape[-1], enc2.shape[0])
+        enc2 = enc2.unsqueeze(1)
+        pooling_enc = enc1*enc2
+        return pooling_enc
+    
+    def encode(self, x1, x2):
+        h1 = Variable(torch.zeros(self.num_layers*2, x1.size(0), self.hidden_size))
+        c1 = Variable(torch.zeros(self.num_layers*2, x1.size(0), self.hidden_size))
+        h2 = Variable(torch.zeros(self.num_layers*2, x2.size(0), self.hidden_size))
+        c2 = Variable(torch.zeros(self.num_layers*2, x2.size(0), self.hidden_size))
+        lstm_out1, (hn1, cn1) = self.lstm1(x1, (h1, c1))
+        lstm_out2, (hn2, cn2) = self.lstm2(x2, (h2, c2))
+        enc1 = lstm_out1[:, -1, :]
+        enc2 = lstm_out2[:, -1, :]
+        return enc1, enc2
         
-    def decode(self, encoded_x):
-        h = Variable(torch.zeros(self.num_layers*2, encoded_x.size(0), self.hidden_size))
-        c = Variable(torch.zeros(self.num_layers*2, encoded_x.size(0), self.hidden_size))
-        lstm_out, (hn1, cn1) = self.lstm2(encoded_x, (h, c))
-        dec = lstm_out[:, -1, :]
-        dec_x = self.linear1(dec)
-        dec_y = self.linear2(dec)
-        return dec_x, dec_y
+    def decode(self, encoded_x1, encoded_x2, pooled_x):
+        h1 = Variable(torch.zeros(self.num_layers*2, encoded_x1.size(0), self.hidden_size))
+        c1 = Variable(torch.zeros(self.num_layers*2, encoded_x1.size(0), self.hidden_size))
+        h2 = Variable(torch.zeros(self.num_layers*2, encoded_x2.size(0), self.hidden_size))
+        c2 = Variable(torch.zeros(self.num_layers*2, encoded_x2.size(0), self.hidden_size))
+        lstm_out1, (hn1, cn1) = self.lstm3(encoded_x2, (h1, c1))
+        lstm_out2, (hn2, cn2) = self.lstm4(encoded_x2, (h2, c2))
+        dec1 = lstm_out1[:, -1, :]
+        dec2 = lstm_out2[:, -1, :]
+        dec1 = self.linear1(dec1)
+        dec2 = self.linear2(dec2)
+        dec_y = self.linear3(pooled_x)
+        return dec1, dec2, dec_y
         
-    def forward(self, x):
-        enc = self.encode(x)
-        enc = enc.unsqueeze(1)
-        enc = enc.repeat(1, self.seq_length, 1)
-        dec_x, dec_y = self.decode(enc)
-        dec_x = dec_x.view(dec_x.shape[0], self.seq_length, int(dec_x.shape[-1]/self.seq_length))
-        
-        return dec_x, dec_y
+    def forward(self, x1, x2):
+        enc1, enc2 = self.encode(x1, x2)
+        pooling_enc = self.TFN(enc1, enc2)
+        pooling_enc = torch.flatten(pooling_enc)
+        pooling_enc = pooling_enc.view(int(pooling_enc.shape[0]/(33*33)), 33*33)
+        pooling_enc = self.linear4(pooling_enc)
+        enc1 = enc1.unsqueeze(1).repeat(1, self.seq_length, 1)
+        enc2 = enc2.unsqueeze(1).repeat(1, self.seq_length, 1)
+        dec_x1, dec_x2, dec_y = self.decode(enc1, enc2, pooling_enc)
+        dec_x1 = dec_x1.view(dec_x1.shape[0], self.seq_length, int(dec_x1.shape[-1]/self.seq_length))
+        dec_x2 = dec_x2.view(dec_x2.shape[0], self.seq_length, int(dec_x2.shape[-1]/self.seq_length))
+        return dec_x1, dec_x2, dec_y
