@@ -11,11 +11,14 @@ Here we see how temperature can have effect on wind speed and direction. we buil
 ### Methods
 In all methods, we build the features and outputs using sliding window. The features is 10 steps in time while the outputs are the next time step after a gap. The gaps we used here is time a head wher we want to predict the values 1, 5, 10 and 50 hours ahead.  
 
-- Baseline: Vanilla LSTM using only wind speed data or widn direction
+**Baseline: Vanilla LSTM using only wind speed data or widn direction**
 
-- LSTM + Bilinear Pooling using wind speed/direction + temperature data
+**LSTM + Bilinear Pooling using wind speed/direction + temperature data**
+Speed (or direction) and temperature features are feed to separte two LSTM layers followed. The outputs are cross multipled to form a matrix. The idea is to get all possible (exhaustive) multiplications of the two outputs vectors of LSTM layers. This idea is originally from the article [Tensor Fusion Network](https://arxiv.org/abs/1707.07250) for using on multimodal data.
 
-- Autoencoder LSTM + BiLinear Pooling using wind speed/direction + temperature data
+**Autoencoder LSTM + BiLinear Pooling using wind speed/direction + temperature data**
+This is just an extenstion of the LSTM + Bipooling. The idea is to make a less noisy representation of the two data (Speed and temperature data). In that case, The speed and temperature ar fed into two separate LSTM layers (encoder) followed by a bottleneck layer and two separate output LSTM layers (decoder). The goal of the encoder-decoder is to reconstuct the speed and temperature features. While the model is training to reconstruct the features, the bottleneck represenatations is cross multiplied. Here we optimize three losses (speed reconstruction loss, temperture reconstruction loss and output prediction loss).
+
 
 ### Results
 [Check Demo](https://github.com/mhmdrdwn/NLweather/blob/main/demo.ipynb)
