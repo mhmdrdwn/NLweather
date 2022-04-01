@@ -25,7 +25,7 @@ This is just an extenstion of the LSTM + Bipooling. The idea is to make a less n
 
 ### Wind Speed
 
-#### Error matrics
+#### Error Metrics
 
 | Error | Model                        | 1H ahead | 5H ahead|10H ahead  |50H ahead    |
 |-------| ---------------------------- |:--------:|:-------:|:---------:|:-----------:|
@@ -46,7 +46,21 @@ This is just an extenstion of the LSTM + Bipooling. The idea is to make a less n
 
 ### Wind Direction
 
-#### Error matrics
+#### Error Metrics (Sine of Degrees)
+
+| Error | Model                        | 1H ahead  | 5H ahead  |10H ahead  |50H ahead  |
+|-------| ---------------------------- |:---------:|:---------:|:---------:|:---------:|
+| MAE   | LSTM Baseline                |  0.196    |  0.305    |   0.388   |  0.537    |
+| MAE   | LSTM+BiLinPooling            |  0.165    |  0.249    |   0.290   |  0.494    |
+| MAE   | AutoencoderLSTM+BiLinPooling |  **0.163**|  **0.238**| **0.286** |  **0.470**|
+| RMSE  | LSTM Baseline                |  0.289    |  0.418    |   0.506   |  0.637    |
+| RMSE  | LSTM+BiLinPooling            |  **0.241**|  0.347    |   0.407   |  0.599    |
+| RMSE  | AutoencoderLSTM+BiLinPooling |  0.244    |  **0.338**| **0.396** |  **0.576**|
+
+
+#### Error Metrics (Degrees)
+
+**N.B. Degrees can be misleading as directions 0 and 360 are equal, but it is here for visualization**
 
 | Error | Model                        | 1H ahead  | 5H ahead  |10H ahead  |50H ahead    |
 |-------| ---------------------------- |:---------:|:---------:|:---------:|:-----------:|
