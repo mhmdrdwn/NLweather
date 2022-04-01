@@ -9,11 +9,13 @@ Here we see how temperature can have effect on wind speed and direction. we buil
 - The data is split into training (January 2011 - December 2018) and testing (January 2019 - March 2020)
 
 ### Methods
+In all methods, we build the features and outputs using sliding window. The features is 10 steps in time while the outputs are the next time step after a gap. The gaps we used here is time a head wher we want to predict the values 1, 5, 10 and 50 hours ahead.  
 
-- LSTM using only wind speed data
+- Baseline: Vanilla LSTM using only wind speed data or widn direction
 
-- LSTM + Bilinear Pooling using wind speed data + temperature data
+- LSTM + Bilinear Pooling using wind speed/direction + temperature data
 
+- Autoencoder LSTM + BiLinear Pooling using wind speed/direction + temperature data
 
 ### Results
 [Check Demo](https://github.com/mhmdrdwn/NLweather/blob/main/demo.ipynb)
@@ -22,18 +24,22 @@ Here we see how temperature can have effect on wind speed and direction. we buil
 
 #### Error matrics
 
-| Error | Model                      | 1H ahead | 5H ahead|10H ahead|50H ahead|
-|-------| -------------------------- |:--------:|:-------:|:-------:|:-------:|
-| MAE   | LSTM Baseline              |  8.99    |  13.73  |   17.74 |  18.91  |
-| MAE   | LSTM+BiLinPooling          |  7.30    |  9.38   |   11.55 |  17.33  | 
-| RMSE  | LSTM Baseline              | 11.84    |  17.77  |  22.18  |  24.19  |
-| RMSE  | LSTM+BiLinPooling          | 10.82    |  13.43  |   16.18 |  22.81  |
+| Error | Model                        | 1H ahead | 5H ahead|10H ahead|50H ahead|
+|-------| ---------------------------- |:--------:|:-------:|:-------:|:-------:|
+| MAE   | LSTM Baseline                |  8.99    |  13.73  |   17.74 |  18.91  |
+| MAE   | LSTM+BiLinPooling            |  7.30    |  9.38   |   11.55 |  17.33  | 
+| MAE   | AutoencoderLSTM+BiLinPooling |  6.62    |  9.38   |   11.55 |  17.33  |
+| RMSE  | LSTM Baseline                | 11.84    |  17.77  |  22.18  |  24.19  |
+| RMSE  | LSTM+BiLinPooling            | 10.82    |  13.43  |   16.18 |  22.81  |
+| RMSE  | AutoencoderLSTM+BiLinPooling | 9.12     |  13.43  |   16.18 |  22.81  |
+
 
 #### sample visualization
 
-| forcasting of wind speed using vanilla LSTM  | forcasting of wind speed using LSTM with BiLinear Pooling |
-|----------------------------------------------| --------------------------------------------------------- |
-| ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_speed.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_bi_speed.png)     |
+| Vanilla LSTM  | LSTM with BiLinear Pooling | AutoencderLSTM with BiLinear Pooling |
+|---------------| ---------------------------|--------------------------------------|
+| ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_speed.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_bi_speed.png)     | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/ae_bi_speed.png) |
+
 
 ### Wind Direction
 
