@@ -41,6 +41,12 @@ python main.py
 | RMSE  | LSTM+BiLinPooling            | 10.82    |**13.43**|   16.18   |  22.81      |
 | RMSE  | AutoencoderLSTM+BiLinPooling |  **9.12**|  13.67  | **15.97** |  **21.85**  |
 
+#### Error Diagnostics for LSTM+BiLinPooling using wind speed data
+| City 1  | City 2 | City 6 |
+|---------------| ---------------------------|-------------------------------------- |
+| ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/city1_error.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/city2_error.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/city6_error.png) |
+
+**The ACF of the errors suggests that there is still a pattern in the residuals. This means the model is still not optimal which maybe can be optimized....**
 
 #### Sample Visualization
 

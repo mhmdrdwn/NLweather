@@ -8,8 +8,8 @@ from src.train import train_speed_data, train_direction_data
 
 def main():
     num_epochs=1
-    print('Speed Data...')
-    train_speed_data(num_epochs)
+    #print('Speed Data...')
+    #train_speed_data(num_epochs)
     print('Direction Data')
     train_direction_data(num_epochs)
     
