@@ -1,6 +1,6 @@
 # NL-weather
 
-Here we see how temperature can have effect on wind speed and direction. we build Fusion neural network where temperature and wind time series data are used together in forcasting of wind speed and wind direction. 
+Here we build Fusion neural network where temperature and wind time series data are used together in forcasting of wind speed and wind direction. 
 
 ### Data
 
