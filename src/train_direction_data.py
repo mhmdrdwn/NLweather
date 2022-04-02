@@ -1,3 +1,8 @@
+#!/usr/bin/env python3
+
+__author__ = 'Mohamed Radwan'
+
+
 from src.load_data import make_wind_direction_data, read_raw_data
 from src.data_utils import build_dataloader
 from src.models import LSTM, BiLinearPoolingLSTM, BiLinearPoolingAutoEncoderLSTM
