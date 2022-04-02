@@ -23,6 +23,11 @@ This is just an extenstion of the LSTM + Bipooling. The idea is to make a less n
 ### Results
 [Check Demo](https://github.com/mhmdrdwn/NLweather/blob/main/demo.ipynb)
 
+Run the experiment using the command (change number of epochs in the main.py file):
+```
+python main.py
+```
+
 ### Wind Speed
 
 #### Error Metrics

@@ -80,7 +80,7 @@ def train_speed_data(num_epochs=10):
     autoenc_lstm = autoenc_lstm.to(device)
     autoenc_lstm = run_train(autoenc_lstm, train_iter, val_iter, num_epochs=num_epochs, 
         outputs_nr=3)
-    y_true, y_preds = run_test(autoenc_lstm, test_iter, scaler, features_set=2)
+    y_true, y_preds = run_test(autoenc_lstm, test_iter, scaler, features_set=2, outputs_nr=3)
     print('Error Metrics...')
     results(y_true, y_preds, feature_name = 'speed', plots=False)
 
