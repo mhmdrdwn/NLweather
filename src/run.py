@@ -39,7 +39,8 @@ def validate(model, val_iter, loss_fn, features_set=2):
     return mean_loss
 
 
-def run_train(model, train_iter, val_iter, num_epochs=10, features_set=2, outputs_nr=1):
+def run_train(model, train_iter, val_iter, num_epochs=10, features_set=2, 
+        outputs_nr=1):
     loss_fn, optimizer = specs(model)
     
     for epoch in range(num_epochs):
@@ -64,17 +65,19 @@ def run_train(model, train_iter, val_iter, num_epochs=10, features_set=2, output
                 for loss_idx in range(outputs_nr):
                     loss = loss_fn(outputs[loss_idx], data_batch[loss_idx])
                     loss.backward(retain_graph=True)
-                    # we backward all losses, but we need to show only "Y" losses
+                    # we backward all losses, but only need to show "Y" losses
                     if (loss_idx - outputs_nr) == -1:
                         losses.append(loss.item())
             
             optimizer.step()
         
         train_loss = np.mean(losses)
-        val_loss = validate(model, val_iter, loss_fn, features_set=features_set) 
+        val_loss = validate(model, val_iter, loss_fn, 
+                features_set=features_set) 
     
         if epoch % 2 == 0:
-            print('Epoch: ', epoch+1, ', Train Loss: ', train_loss, ', Val Loss: ', val_loss)
+            print('Epoch: ', epoch+1, ', Train Loss: ', 
+                    train_loss, ', Val Loss: ', val_loss)
 
     return model
 
@@ -92,6 +95,7 @@ def run_test(model, test_iter, scaler, features_set=2, outputs_nr=1):
             if features_set == 1:
                 x, y = data_batch
                 y = y.cpu().numpy().reshape(-1)
+
                 if outputs_nr == 1:
                     y_pred = model(x).view(len(y), -1).cpu().numpy().reshape(-1)
                 else:
@@ -117,7 +121,8 @@ def run_test(model, test_iter, scaler, features_set=2, outputs_nr=1):
     return y_true, y_preds
 
 
-def run_test_direction(model, test_iter, scaler, features_set=2, outputs_nr=1, output_sine=False):
+def run_test_direction(model, test_iter, scaler, features_set=2, outputs_nr=1, 
+        output_sine=False):
     model.eval()
     y_preds = list()
     y_true = list()
