@@ -14,7 +14,7 @@ Here we build Fusion neural network where temperature and wind time series data 
 - [Spatiotemporal graph convolutional neuralnetworks](https://github.com/tstanczyk95/WeatherGCNet)
 
 ### Methods
-In all methods, we build the features and outputs using sliding window. The features are 10 steps in time while the outputs are the next time step after a gap (lag). The gaps we used here is time a head where we want to predict the values 1, 5, 10 and 50 hours ahead. While 50 hours ahead, realistically and likely, would not give any good results, but it is still here for visualization and comparisons.  
+In all methods, we build the features and outputs using sliding window. The features are 10 steps in time while the outputs are the next time step after a gap (lag). The gaps we used here is time a head where we want to predict the values 1, 2, 5 and 10 hours ahead. 
 
 **Baseline: Vanilla LSTM using only wind speed data or wind direction**
 
@@ -40,19 +40,22 @@ python main.py
 | Error | Model                        | 1H ahead |2H ahead  | 5H ahead|10H ahead  |
 |-------| ---------------------------- |:--------::---------:|:-------:|:---------:|
 | MAE   | LSTM Baseline                |  8.86    | 10.26    |  13.73  |   16.36   | 
-| MAE   | LSTM+BiLinPooling            |  **5.73**| **6.69** |**9.38** |   10.72   | 
-| MAE   | AutoencoderLSTM+BiLinPooling |  6.74    | 7.17     |  9.88   | **10.97** | 
-|----------------------------------------------------------------------------------|
+| MAE   | LSTM+BiLinPooling            |  **5.73**| **6.69** |**9.38** |  **10.72**| 
+| MAE   | AutoencoderLSTM+BiLinPooling |  6.74    | 7.17     |  9.88   |   11.09   | 
+
+| Error | Model                        | 1H ahead |2H ahead  | 5H ahead|10H ahead  |
+|-------| ---------------------------- |:--------::---------:|:-------:|:---------:|
 | RMSE  | LSTM Baseline                |  11.72   | 13.49    |  17.77  |   20.95   | 
-| RMSE  | LSTM+BiLinPooling            |  **9.11**| **10.42**|**13.43**|   15.42   |  
-| RMSE  | AutoencoderLSTM+BiLinPooling |  9.54    |  10.46   |  13.67  | **15.97** | 
+| RMSE  | LSTM+BiLinPooling            |  **9.11**| **10.42**|**13.43**| **15.42** |  
+| RMSE  | AutoencoderLSTM+BiLinPooling |  9.54    |  10.46   |  13.67  |   15.62   | 
+
 
 #### Error Diagnostics for LSTM+BiLinPooling using wind speed data
 | City 1  | City 5 | City 7 |
 |---------------| ---------------------------|-------------------------------------- |
 | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/city1_error.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/city5_error.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/city7_error.png) |
 
-**The ACF of the errors suggests that there is still a little patterns in the test residuals that should have been captured by the model or another model. This means the model can still be optimized**
+**The ACF of the errors suggests that there is still a little patterns in the test residuals that should have been captured by the model or another model. The residuals still show some time lag correlations. This means the model can still be optimized. This pattern was hoped to be captured using the AutoencoderLSTM but it does look that the AutoencoderLSTM does not give best results in the case study here (But it is has still superior performance than vanilla LSTM)**
 
 #### Sample Visualization
 
@@ -70,6 +73,9 @@ python main.py
 | MAE   | LSTM Baseline                |  0.196    | 0.222    |  0.305    |   0.388   | 
 | MAE   | LSTM+BiLinPooling            |  0.165    | **0.165**|  0.249    |   0.290   | 
 | MAE   | AutoencoderLSTM+BiLinPooling |  **0.163**| 0.169    | **0.238** | **0.286** | 
+
+| Error | Model                        | 1H ahead  | 2H ahead | 5H ahead  |10H ahead  |
+|-------| ---------------------------- |:---------:|:--------:|:---------:|:---------:|
 | RMSE  | LSTM Baseline                |  0.289    | 0.318    |  0.418    |   0.506   | 
 | RMSE  | LSTM+BiLinPooling            |  **0.241**| **0.258**|  0.347    |   0.407   | 
 | RMSE  | AutoencoderLSTM+BiLinPooling |  0.244    | 0.259    | **0.338** | **0.396** | 
