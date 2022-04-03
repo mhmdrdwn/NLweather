@@ -39,15 +39,15 @@ python main.py
 
 | Error | Model                        | 1H ahead |2H ahead  | 5H ahead|10H ahead  |
 |-------| ---------------------------- |:--------:|:--------:|:-------:|:---------:|
-| MAE   | LSTM Baseline                |  8.86    | 10.26    |  13.73  |   16.36   | 
-| MAE   | LSTM+BiLinPooling            |  **5.73**| **6.69** |**9.38** |  **10.72**| 
+| MAE   | LSTM Baseline                |  8.86    | 10.26    |  13.72  |   16.36   | 
+| MAE   | LSTM+BiLinPooling            |  **5.73**| **6.69** |**8.80** |  **10.72**| 
 | MAE   | AutoencoderLSTM+BiLinPooling |  6.74    | 7.17     |  9.88   |   11.09   | 
 
 
 | Error | Model                        | 1H ahead |2H ahead  | 5H ahead|10H ahead  |
 |-------| ---------------------------- |:--------:|:--------:|:-------:|:---------:|
-| RMSE  | LSTM Baseline                |  11.72   | 13.49    |  17.77  |   20.95   | 
-| RMSE  | LSTM+BiLinPooling            |  **9.11**| **10.42**|**13.43**| **15.42** |  
+| RMSE  | LSTM Baseline                |  11.72   | 13.49    |  17.67  |   20.95   | 
+| RMSE  | LSTM+BiLinPooling            |  **9.11**| **10.42**|**13.04**| **15.42** |  
 | RMSE  | AutoencoderLSTM+BiLinPooling |  9.54    |  10.46   |  13.67  |   15.62   | 
 
 
@@ -71,16 +71,16 @@ python main.py
 
 | Error | Model                        | 1H ahead  | 2H ahead | 5H ahead  |10H ahead  |
 |-------| ---------------------------- |:---------:|:--------:|:---------:|:---------:|
-| MAE   | LSTM Baseline                |  0.196    | 0.222    |  0.305    |   0.388   | 
-| MAE   | LSTM+BiLinPooling            |  0.165    | **0.165**|  0.249    |   0.290   | 
-| MAE   | AutoencoderLSTM+BiLinPooling |  **0.163**| 0.169    | **0.238** | **0.286** | 
+| MAE   | LSTM Baseline                |  0.196    | 0.222    |  0.307    |   0.391   | 
+| MAE   | LSTM+BiLinPooling            |  0.165    | **0.165**|  **0.222**| **0.278** | 
+| MAE   | AutoencoderLSTM+BiLinPooling |  **0.163**| 0.169    | 0.238     |   0.286   | 
 
 
 | Error | Model                        | 1H ahead  | 2H ahead | 5H ahead  |10H ahead  |
 |-------| ---------------------------- |:---------:|:--------:|:---------:|:---------:|
-| RMSE  | LSTM Baseline                |  0.289    | 0.318    |  0.418    |   0.506   | 
-| RMSE  | LSTM+BiLinPooling            |  **0.241**| **0.258**|  0.347    |   0.407   | 
-| RMSE  | AutoencoderLSTM+BiLinPooling |  0.244    | 0.259    | **0.338** | **0.396** | 
+| RMSE  | LSTM Baseline                |  0.289    | 0.318    |  0.407    |   0.498   | 
+| RMSE  | LSTM+BiLinPooling            |  **0.241**| **0.258**|  **0.325**| **0.392** | 
+| RMSE  | AutoencoderLSTM+BiLinPooling |  0.244    | 0.259    |   0.338   |    0.396  | 
 
 
 #### Error Metrics (Degrees)
