@@ -10,8 +10,8 @@ Here we build Fusion neural network where temperature and wind time series data 
 
 #### Related Interesting Studies on the same data
 
-[Multidimensional convolutional neuralnetworks](https://github.com/HansBambel/multidim_conv)
-[Spatiotemporal graph convolutional neuralnetworks](https://github.com/tstanczyk95/WeatherGCNet)
+- [Multidimensional convolutional neuralnetworks](https://github.com/HansBambel/multidim_conv)
+- [Spatiotemporal graph convolutional neuralnetworks](https://github.com/tstanczyk95/WeatherGCNet)
 
 ### Methods
 In all methods, we build the features and outputs using sliding window. The features are 10 steps in time while the outputs are the next time step after a gap (lag). The gaps we used here is time a head where we want to predict the values 1, 5, 10 and 50 hours ahead. While 50 hours ahead, realistically and likely, would not give any good results, but it is still here for visualization and comparisons.  
