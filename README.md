@@ -72,15 +72,15 @@ python main.py
 | Error | Model                        | 1H ahead  | 2H ahead | 5H ahead  |10H ahead  |
 |-------| ---------------------------- |:---------:|:--------:|:---------:|:---------:|
 | MAE   | LSTM Baseline                |  0.196    | 0.222    |  0.307    |   0.391   | 
-| MAE   | LSTM+BiLinPooling            |  0.165    | **0.165**|  **0.222**| **0.278** | 
-| MAE   | AutoencoderLSTM+BiLinPooling |  **0.163**| 0.169    | 0.238     |   0.286   | 
+| MAE   | LSTM+BiLinPooling            |  **0.133**| **0.165**|  **0.222**| **0.278** | 
+| MAE   | AutoencoderLSTM+BiLinPooling |    0.154  | 0.169    | 0.238     |   0.286   | 
 
 
 | Error | Model                        | 1H ahead  | 2H ahead | 5H ahead  |10H ahead  |
 |-------| ---------------------------- |:---------:|:--------:|:---------:|:---------:|
 | RMSE  | LSTM Baseline                |  0.289    | 0.318    |  0.407    |   0.498   | 
-| RMSE  | LSTM+BiLinPooling            |  **0.241**| **0.258**|  **0.325**| **0.392** | 
-| RMSE  | AutoencoderLSTM+BiLinPooling |  0.244    | 0.259    |   0.338   |    0.396  | 
+| RMSE  | LSTM+BiLinPooling            |  **0.223**| **0.258**|  **0.325**| **0.392** | 
+| RMSE  | AutoencoderLSTM+BiLinPooling |  0.235    | 0.259    |   0.338   |    0.396  | 
 
 
 #### Error Metrics (Degrees)
