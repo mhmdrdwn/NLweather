@@ -37,21 +37,22 @@ python main.py
 
 #### Error Metrics
 
-| Error | Model                        | 1H ahead | 5H ahead|10H ahead  |50H ahead    |
-|-------| ---------------------------- |:--------:|:-------:|:---------:|:-----------:|
-| MAE   | LSTM Baseline                |  8.99    |  13.73  |   17.74   |  18.91      |
-| MAE   | LSTM+BiLinPooling            |  7.30    |**9.38** |   11.55   |  17.33      | 
-| MAE   | AutoencoderLSTM+BiLinPooling | **6.62** |  9.88   | **10.97** |  **16.45**  |
-| RMSE  | LSTM Baseline                | 11.84    |  17.77  |   22.18   |  24.19      |
-| RMSE  | LSTM+BiLinPooling            | 10.82    |**13.43**|   16.18   |  22.81      |
-| RMSE  | AutoencoderLSTM+BiLinPooling |  **9.12**|  13.67  | **15.97** |  **21.85**  |
+| Error | Model                        | 1H ahead |2H ahead  | 5H ahead|10H ahead  |
+|-------| ---------------------------- |:--------::---------:|:-------:|:---------:|
+| MAE   | LSTM Baseline                |  8.86    | 10.26    |  13.73  |   16.36   | 
+| MAE   | LSTM+BiLinPooling            |  **5.73**| **6.69** |**9.38** |   10.72   | 
+| MAE   | AutoencoderLSTM+BiLinPooling |  6.74    | 7.17     |  9.88   | **10.97** | 
+|----------------------------------------------------------------------------------|
+| RMSE  | LSTM Baseline                |  11.72   | 13.49    |  17.77  |   20.95   | 
+| RMSE  | LSTM+BiLinPooling            |  **9.11**| **10.42**|**13.43**|   15.42   |  
+| RMSE  | AutoencoderLSTM+BiLinPooling |  9.54    |  10.46   |  13.67  | **15.97** | 
 
 #### Error Diagnostics for LSTM+BiLinPooling using wind speed data
-| City 1  | City 2 | City 6 |
+| City 1  | City 5 | City 7 |
 |---------------| ---------------------------|-------------------------------------- |
-| ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/city1_error.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/city2_error.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/city6_error.png) |
+| ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/city1_error.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/city5_error.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/city7_error.png) |
 
-**The ACF of the errors suggests that there is still a pattern in the residuals. This means the model is still not optimal which maybe can be optimized....**
+**The ACF of the errors suggests that there is still a little patterns in the test residuals that should have been captured by the model or another model. This means the model can still be optimized**
 
 #### Sample Visualization
 
@@ -64,31 +65,21 @@ python main.py
 
 #### Error Metrics (Sine of Degrees)
 
-| Error | Model                        | 1H ahead  | 5H ahead  |10H ahead  |50H ahead  |
-|-------| ---------------------------- |:---------:|:---------:|:---------:|:---------:|
-| MAE   | LSTM Baseline                |  0.196    |  0.305    |   0.388   |  0.537    |
-| MAE   | LSTM+BiLinPooling            |  0.165    |  0.249    |   0.290   |  0.494    |
-| MAE   | AutoencoderLSTM+BiLinPooling |  **0.163**|  **0.238**| **0.286** |  **0.470**|
-| RMSE  | LSTM Baseline                |  0.289    |  0.418    |   0.506   |  0.637    |
-| RMSE  | LSTM+BiLinPooling            |  **0.241**|  0.347    |   0.407   |  0.599    |
-| RMSE  | AutoencoderLSTM+BiLinPooling |  0.244    |  **0.338**| **0.396** |  **0.576**|
+| Error | Model                        | 1H ahead  | 2H ahead | 5H ahead  |10H ahead  |
+|-------| ---------------------------- |:---------:|:--------:|:---------:|:---------:|
+| MAE   | LSTM Baseline                |  0.196    | 0.222    |  0.305    |   0.388   | 
+| MAE   | LSTM+BiLinPooling            |  0.165    | **0.165**|  0.249    |   0.290   | 
+| MAE   | AutoencoderLSTM+BiLinPooling |  **0.163**| 0.169    | **0.238** | **0.286** | 
+| RMSE  | LSTM Baseline                |  0.289    | 0.318    |  0.418    |   0.506   | 
+| RMSE  | LSTM+BiLinPooling            |  **0.241**| **0.258**|  0.347    |   0.407   | 
+| RMSE  | AutoencoderLSTM+BiLinPooling |  0.244    | 0.259    | **0.338** | **0.396** | 
 
 
 #### Error Metrics (Degrees)
 
 **N.B. Degrees can be misleading as directions 0 and 360 are equal, but it is here for visualization**
 
-| Error | Model                        | 1H ahead  | 5H ahead  |10H ahead  |50H ahead    |
-|-------| ---------------------------- |:---------:|:---------:|:---------:|:-----------:|
-| MAE   | LSTM Baseline                |  29.08    |  43.29    |   54.65   |  69.39      | 
-| MAE   | LSTM+BiLinPooling            |  **22.95**|  34.20    |   41.69   |  65.93      | 
-| MAE   | AutoencoderLSTM+BiLinPooling |  24.19    |**32.89**  | **39.87** | **65.72**   |
-| RMSE  | LSTM Baseline                |  65.07    |  78.30    |   86.88   | **91.49**   |
-| RMSE  | LSTM+BiLinPooling            |  **58.74**|  70.59    |   77.69   |  93.05      |
-| RMSE  | AutoencoderLSTM+BiLinPooling |  60.17    |**68.56**  | **74.79** |    94.68    |
-
-
-#### Sample Visualization
+#### Sample Visualization (Degrees of first 500 time steps of City 1)
 
 | Vanilla LSTM  | LSTM with BiLinear Pooling | AutoencoderLSTM with BiLinear Pooling |
 |---------------| -------------------------- | ------------------------------------- |

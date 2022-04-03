@@ -18,7 +18,7 @@ def specs(model):
     return loss_fn, optimizer
 
 
-def validate(model, val_iter, loss_fn, features_set=2):
+def validate(model, val_iter, loss_fn, features_set=2, outputs_nr=1):
     model.eval()
     losses = []
         
@@ -26,13 +26,17 @@ def validate(model, val_iter, loss_fn, features_set=2):
         for data_batch in tqdm(val_iter):
             if features_set == 1:
                 x, y = data_batch
-                outputs = model(x)
+                if outputs_nr == 1:
+                    outputs = model(x)
+                else:
+                    outputs = model(x)[-1]
             else:
                 x1, x2, y = data_batch
-                outputs = model(x1, x2)
-
-            output_idx = -1
-            loss = loss_fn(outputs[output_idx].cpu(), y.cpu())
+                if outputs_nr == 1:
+                    outputs = model(x1, x2)
+                else:
+                    outputs = model(x1, x2)[-1]
+            loss = loss_fn(outputs.cpu(), y.cpu())
             losses.append(loss)
 
     mean_loss = np.mean(losses)
@@ -73,7 +77,7 @@ def run_train(model, train_iter, val_iter, num_epochs=10, features_set=2,
         
         train_loss = np.mean(losses)
         val_loss = validate(model, val_iter, loss_fn, 
-                features_set=features_set) 
+                features_set=features_set, outputs_nr=outputs_nr) 
     
         if epoch % 2 == 0:
             print('Epoch: ', epoch+1, ', Train Loss: ', 
