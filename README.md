@@ -3,7 +3,7 @@
 Here we build Fusion neural network where temperature and wind time series data are used together in forcasting of wind speed and wind direction. 
 
 ### Data
-- The dataset was aacuired by the Netherlands Meteorological Institute.
+- The dataset was acquired by the Netherlands Meteorological Institute.
 - The dataset contains wind speed, wind direction, temperature, wind pressure, rain amount and Dew Point (6 data features). 
 - The data was acquired from 7 cities in Netherlands from 2011 to 2020 with 81.000 datapoints. 
 - The data is split into training (January 2011 - December 2018) and testing (January 2019 - March 2020).
