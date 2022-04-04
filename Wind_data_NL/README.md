@@ -1,2 +1,2 @@
-## Dataset
-The dataset is from the repository : ![alt text](https://github.com/HansBambel/multidim_conv)
+## Credit
+The dataset is from the repository : ![repo](https://github.com/HansBambel/multidim_conv)
