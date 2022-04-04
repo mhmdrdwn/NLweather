@@ -27,8 +27,8 @@ This is just an extenstion of the LSTM + Bipooling. The idea is to make a less n
 
 ### Results
 [Check Demo](https://github.com/mhmdrdwn/NLweather/blob/main/demo.ipynb)
-
-Run the experiment using the command (change number of epochs in the main.py file):
+N.B. this demo is a little outdated. in order to get the most updated results,
+run the experiment using the command (change number of epochs in the main.py file):
 ```
 python main.py
 ```
