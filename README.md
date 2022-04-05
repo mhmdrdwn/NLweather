@@ -95,6 +95,7 @@ python main.py
 |---------------| -------------------------- | ------------------------------------- |
 | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_dir.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_bi_dir.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/ae_bi_dir.png) |
 
+#### Wind directions for the first 20 observations vs predictions in test data
 | Vanilla LSTM  | LSTM with BiLinear Pooling | AutoencoderLSTM with BiLinear Pooling |
 |---------------| -------------------------- | ------------------------------------- |
 | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_dir2.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_bi_dir2.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/ae_bi_dir2.png) |
