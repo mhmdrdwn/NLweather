@@ -108,8 +108,8 @@ python main.py
 |-------| ---------------------------- |:---------:|:--------:|:--------:|:--------:|:---------:|:---------:|
 | MAE   | [2D CNN+Attention](https://github.com/HansBambel/multidim_conv) |  8.08        | 9.10    |  11.00    |   -     | - | - |
 | MAE   | [Multidimensional CNN](https://github.com/HansBambel/multidim_conv) |  8.12    | 9.05    |  10.94    |   -     | - |-  |
-| MAE   | [Weather GCN (Fixed adjacency)](https://github.com/tstanczyk95/WeatherGCNet)   |  -       | 7.96    |  9.97        |   11.16 | 12.30 | 13.33 |
-| MAE   | [Weather GCN (learnt adjacency)](https://github.com/tstanczyk95/WeatherGCNet)   |  -       | 7.97    |  9.74    |   10.99 | 12.44  | 13.55 |
+| MAE   | [Weather GCN (Fixed learning parameter for adjcency)](https://github.com/tstanczyk95/WeatherGCNet)   |  -       | 7.96    |  9.97        |   11.16 | 12.30 | 13.33 |
+| MAE   | [Weather GCN (learnt learning parameter for adjcency)](https://github.com/tstanczyk95/WeatherGCNet)   |  -       | 7.97    |  9.74    |   10.99 | 12.44  | 13.55 |
 | MAE   | Our Model |    **5.73**  | **6.69**   | **8.16** | **9.38**     | **9.92**  | **10.72**   |    
 
 
@@ -117,8 +117,8 @@ python main.py
 |-------| ---------------------------- |:---------:|:--------:|:--------:|:--------:|:---------:|:---------:|
 | RMSE   | [2D CNN+Attention](https://github.com/HansBambel/multidim_conv) |  10.77        | 12.16    |  14.60    |   -     | - | - |
 | RMSE   | [Multidimensional CNN](https://github.com/HansBambel/multidim_conv) |  10.81    | 12.02    |  14.45    |   -     | - |-  |
-| RMSE   | [Weather GCN (Fixed adjacency)](https://github.com/tstanczyk95/WeatherGCNet)   |  -       | -    |  -        |   - | - | - |
-| RMSE   | [Weather GCN (learnt adjacency)](https://github.com/tstanczyk95/WeatherGCNet)   |  -       | -    |  -    |   - | -  | - |
+| RMSE   | [Weather GCN (Fixed learning parameter for adjcanecy)](https://github.com/tstanczyk95/WeatherGCNet)   |  -       | -    |  -        |   - | - | - |
+| RMSE   | [Weather GCN (learnt learning parameter for adjacency)](https://github.com/tstanczyk95/WeatherGCNet)   |  -       | -    |  -    |   - | -  | - |
 | RMSE   | Our Model |    **9.11**  | **10.42**   | **12.28** | 13.62     |  14.63  | 15.42   |
 
 
