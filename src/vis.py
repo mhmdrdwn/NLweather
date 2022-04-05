@@ -67,6 +67,8 @@ def plot_directions(y_true, y_preds):
 
 
 def draw_line(x,y,angle,length, color, label=False):
+    """This functions is taken and modified after
+    https://stackoverflow.com/questions/15971768/drawing-arrow-in-x-y-coordinate-in-python"""
     cartesianAngleRadians = (450-angle)*np.pi/180.0
     terminus_x = x + length * np.cos(cartesianAngleRadians)
     terminus_y = y + length * np.sin(cartesianAngleRadians)
