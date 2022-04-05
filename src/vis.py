@@ -44,4 +44,39 @@ def error_acf(y_true, y_preds):
         plt.ylabel('ACF', fontsize=12)
         plt.xlabel('Lags', fontsize=12)
         plt.show()
+        
+        
+def plot_directions(y_true, y_preds):
+    x = np.array(range(1, 20, 1))
+    y = np.array([1 for i in range(20)])
+
+    plt.xlim(-1, 20)
+    plt.ylim(0, 5)
+    
+    for city_idx in range(y_true.shape[1]):
+        for i in range(0,len(x)):
+            if i == len(x)-1:
+                draw_line(x[i],y[i],y_preds[i, 0],2,color='g', label='Prediction')
+                draw_line(x[i],y[i],y_true[i, 0],2, color='r', label='Ground Truth')
+            else:
+                draw_line(x[i],y[i],y_preds[i, 0],2,color='g')
+                draw_line(x[i],y[i],y_true[i, 0],2, color='r')
+        plt.title('City '+str(city_idx))
+        plt.legend()
+        plt.show()
+
+
+def draw_line(x,y,angle,length, color, label=False):
+    cartesianAngleRadians = (450-angle)*np.pi/180.0
+    terminus_x = x + length * np.cos(cartesianAngleRadians)
+    terminus_y = y + length * np.sin(cartesianAngleRadians)
+    if label:
+        plt.plot([x, terminus_x],[y,terminus_y], linewidth=2, color=color, label=label)
+    else:
+        plt.plot([x, terminus_x],[y,terminus_y], linewidth=2, color=color)
+        
+    plt.tick_params(axis='both', which='both', bottom=False, top=False, 
+                left=False,right=False, labelleft=False, labelbottom=False)
+    plt.xlabel('Time')
+    
 

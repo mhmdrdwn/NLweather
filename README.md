@@ -3,6 +3,7 @@
 Here we build Fusion neural network where temperature and wind time series data are used together in forcasting of wind speed and wind direction. 
 
 ### Data
+
 - The dataset was acquired by the Netherlands Meteorological Institute.
 - The dataset contains wind speed, wind direction, temperature, wind pressure, rain amount and Dew Point (6 data features). 
 - The data was acquired from 7 cities in Netherlands from 2011 to 2020 with 81.000 datapoints. 
@@ -86,13 +87,17 @@ python main.py
 
 #### Error Metrics (Degrees)
 
-**N.B. Degrees can be misleading as directions 0 and 360 are equal, but it is here for visualization**
+**N.B. Degrees maybe be misleading in some cases as directions 0 and 360 are equal (i.e. see the spikes in time series), but it is here for visualization**
 
 #### Sample Visualization (Degrees of first 500 time steps of City 1)
 
 | Vanilla LSTM  | LSTM with BiLinear Pooling | AutoencoderLSTM with BiLinear Pooling |
 |---------------| -------------------------- | ------------------------------------- |
 | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_dir.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_bi_dir.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/ae_bi_dir.png) |
+
+| Vanilla LSTM  | LSTM with BiLinear Pooling | AutoencoderLSTM with BiLinear Pooling |
+|---------------| -------------------------- | ------------------------------------- |
+| ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_dir2.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_bi_dir2.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/ae_bi_dir2.png) |
 
 
 ### References: Dataset source and project structure

@@ -125,7 +125,7 @@ def run_test(model, test_iter, scaler, features_set=2, outputs_nr=1):
     return y_true, y_preds
 
 
-def run_test_direction(model, test_iter, scaler, features_set=2, outputs_nr=1, 
+def run_test_direction(model, test_iter, features_set=2, outputs_nr=1, 
         output_sine=False):
     model.eval()
     y_preds = list()
