@@ -15,7 +15,7 @@ Here we build Fusion neural network where temperature and wind time series data 
 - [Spatiotemporal graph convolutional neuralnetworks](https://github.com/tstanczyk95/WeatherGCNet)
 
 ### Methods
-In all methods, we build the features and outputs using sliding window. The features are 10 steps in time while the outputs are the next time step after a gap (lag). The gaps we used here is time a head where we want to predict the values 1, 2, 5 and 10 hours ahead. 
+In all methods, we build the features and outputs using sliding window. The features are 10 steps in time while the outputs are the next time step after a gap. The gaps we used here is time a head where we want to predict the values 1, 2, 5 and 10 hours ahead. 
 
 **Baseline: Vanilla LSTM using only wind speed data or wind direction**
 
