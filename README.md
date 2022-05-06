@@ -101,29 +101,6 @@ python main.py
 | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_dir2.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/lstm_bi_dir2.png) | ![alt text](https://github.com/mhmdrdwn/NLweather/blob/main/plots/ae_bi_dir2.png) |
 
 
-
-### Comparison with Other studies (using wind Speed data)
-
-| Error | Model                        | 1H ahead  | 2H ahead | 4H ahead | 6H ahead | 8H ahead  |10H ahead  |
-|-------| ---------------------------- |:---------:|:--------:|:--------:|:--------:|:---------:|:---------:|
-| MAE   | [2D CNN+Attention](https://github.com/HansBambel/multidim_conv) |  8.08        | 9.10    |  11.00    |   -     | - | - |
-| MAE   | [Multidimensional CNN](https://github.com/HansBambel/multidim_conv) |  8.12    | 9.05    |  10.94    |   -     | - |-  |
-| MAE   | [Weather GCN (Fixed learning parameter for adjcency)](https://github.com/tstanczyk95/WeatherGCNet)   |  -       | 7.96    |  9.97        |   11.16 | 12.30 | 13.33 |
-| MAE   | [Weather GCN (learnt learning parameter for adjcency)](https://github.com/tstanczyk95/WeatherGCNet)   |  -       | 7.97    |  9.74    |   10.99 | 12.44  | 13.55 |
-| MAE   | Our Model |    **5.73**  | **6.69**   | **8.16** | **9.38**     | **9.92**  | **10.72**   |    
-
-
-| Error | Model                        | 1H ahead  | 2H ahead | 4H ahead | 6H ahead | 8H ahead  |10H ahead  |
-|-------| ---------------------------- |:---------:|:--------:|:--------:|:--------:|:---------:|:---------:|
-| RMSE   | [2D CNN+Attention](https://github.com/HansBambel/multidim_conv) |  10.77        | 12.16    |  14.60    |   -     | - | - |
-| RMSE   | [Multidimensional CNN](https://github.com/HansBambel/multidim_conv) |  10.81    | 12.02    |  14.45    |   -     | - |-  |
-| RMSE   | [Weather GCN (Fixed learning parameter for adjcanecy)](https://github.com/tstanczyk95/WeatherGCNet)   |  -       | -    |  -        |   - | - | - |
-| RMSE   | [Weather GCN (learnt learning parameter for adjacency)](https://github.com/tstanczyk95/WeatherGCNet)   |  -       | -    |  -    |   - | -  | - |
-| RMSE   | Our Model |    **9.11**  | **10.42**   | **12.28** | 13.62     |  14.63  | 15.42   |
-
-
-
-
 ### References: Dataset source and project structure
 - Dataset from "Trebing, Kevin and Mehrkanoon, Siamak, 2020, Wind speed prediction using multidimensional convolutional neural networks" [Github](https://github.com/HansBambel/multidim_conv)
 - Project structure: [Github](https://github.com/ossez-com/python-project-structure-sample)
